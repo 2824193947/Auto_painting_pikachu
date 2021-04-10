@@ -1,23 +1,41 @@
 !function(){
+    // 调速变量
+    var duration = 30
     function writeCode(prefix, code, fn){
         let container = document.querySelector('#code')
         let styleTag = document.querySelector('#styleTag')
         let n = 0
-        let id = setInterval(() => {
+        // 这里使用定时函数模拟setInterval,因为他不能修改变量来调速度
+        // let id = setInterval(() => {
+        //     n += 1
+        //     container.innerHTML = code.substring(0, n)
+        //     styleTag.innerHTML = code.substring(0,n)
+        //     // 每次循环上卷内容
+        //     container.scrollTop = container.scrollHeight
+        //     //判断代码长度等于代码长度停止
+        //     if(n >= code.length) {
+        //         window.clearInterval(id)
+        //         // 有回调就调用回调
+        //         fn && fn.call()
+        //     }
+        // },27)
+        setTimeout(function run(){
             n += 1
             container.innerHTML = code.substring(0, n)
             styleTag.innerHTML = code.substring(0,n)
             // 每次循环上卷内容
             container.scrollTop = container.scrollHeight
             //判断代码长度等于代码长度停止
-            if(n >= code.length) {
-                window.clearInterval(id)
+            if(n < code.length) {
+                setTimeout(run, duration)
+            }else{
                 // 有回调就调用回调
                 fn && fn.call()
             }
-        },27)
+        }, duration)
 
     }
+    // 代码
     let code = `
         /*
         * 首先准备皮卡丘的皮 哈哈哈！
@@ -185,4 +203,27 @@
     */
     `
     writeCode('',code)
+
+    // 按钮区域
+    $('.actions').on('click', 'button', function(e) {
+        // 1.切换样式
+        let $button = $(e.currentTarget) //button
+        // 1.1 attr获取按钮的属性
+        let speed = $button.attr('data-speed')
+        // console.log(speed);
+        // 1.2 将电击的按钮添加样式,并且他的兄弟去除样式
+        $button.addClass('active').siblings('.active').removeClass('active')
+        // 2 调速度
+        switch(speed){
+            case 'slow':
+                duration = 100;
+                break
+            case 'normal':
+                duration = 30;
+                break
+            case 'fast':
+                duration = 7; 
+                break
+        }
+    })
 }.call()

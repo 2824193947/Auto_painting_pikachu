@@ -25,8 +25,8 @@ body {
 }
 .actions {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 10px;
     display: flex;
     flex-direction: column;
     border: 2px solid rgb(206, 198, 198);
@@ -41,7 +41,7 @@ body {
     border-radius: 5px;
 }
 .actions>button.active{
-    box-shadow: 3px 3px 6px -1px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 .actions>button:focus{
     outline: none;
