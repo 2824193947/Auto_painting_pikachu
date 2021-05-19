@@ -46,3 +46,10 @@ body {
 .actions>button:focus{
     outline: none;
 }
+.audios {
+    position: absolute;
+    top: 179px;
+    right: 0;
+    width: 100px;
+    height: 35px;
+}
